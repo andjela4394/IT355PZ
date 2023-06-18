@@ -3,9 +3,12 @@ package com.metropolitan.pz.security;
 import com.metropolitan.pz.entities.User;
 import com.metropolitan.pz.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -13,7 +16,11 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 public class JwtUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
-    private PasswordEncoder bcryptEncoder;
+
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws
             UsernameNotFoundException {
@@ -26,8 +33,11 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
     public User save(User user) {
         User newUser = new User();
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
         newUser.setUsername(user.getUsername());
-        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+        newUser.setPassword(passwordEncoder().encode(user.getPassword()));
+        newUser.setRole(user.getRole());
         return userRepository.save(newUser);
     }
 }

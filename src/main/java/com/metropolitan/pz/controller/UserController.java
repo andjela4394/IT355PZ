@@ -2,6 +2,7 @@ package com.metropolitan.pz.controller;
 
 import com.metropolitan.pz.entities.User;
 import com.metropolitan.pz.repository.UserRepository;
+import com.metropolitan.pz.security.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +13,12 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
     private final UserRepository userRepository;
+    private final JwtUserDetailsService userDetailsService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, JwtUserDetailsService userDetailsService) {
         this.userRepository = userRepository;
+        this.userDetailsService = userDetailsService;
     }
 
     @GetMapping
@@ -31,7 +34,7 @@ public class UserController {
 
     @PostMapping
     public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
+        return userDetailsService.save(user);
     }
 
     @PutMapping("/{id}")
