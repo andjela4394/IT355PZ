@@ -1,7 +1,7 @@
 package com.metropolitan.pz.entities;
 
 import com.metropolitan.pz.entities.enums.Category;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
