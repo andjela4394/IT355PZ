@@ -45,12 +45,14 @@ public class JwtTokenUtil implements Serializable {
         return expiration.before(new Date());
     }
     public String generateToken(UserDetails authentication) {
+        JwtUserDetails userDetails = (JwtUserDetails) authentication;
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
         return Jwts.builder()
                 .setSubject(authentication.getUsername())
                 .claim(AUTHORITIES_KEY, authorities)
+                .claim("userId", userDetails.getUserId())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY
                         * 1000))

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CartRepository extends JpaRepository<Cart, Long> {
     // Additional methods if needed
-    @Query("SELECT c FROM Cart c WHERE c.user.id = :userId")
+    @Query("SELECT c FROM Cart c WHERE c.userId = :userId")
     List<Cart> findByUserId(Long userId);
 }
 

@@ -1,32 +1,37 @@
 package com.metropolitan.pz.entities;
 
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
+
 @Entity
-@Table(name = "cart")
+@Table(name = "orderItem")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Cart {
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "order_id")
+    private Long orderId;
 
-    @Column(name = "user_id")
-    private Long userId;
-
-
-    @Column(name = "product_id")
+    @Column(name = "product_id", nullable = false)
     private Long productId;
 
-    private int quantity;
 
-    // Constructors, getters, and setters
+    // Add constructors, getters, and setters
+
+    // Other properties and methods as needed
 }
+
+
+
+
+
 

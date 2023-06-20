@@ -10,6 +10,9 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class JwtUserDetails implements UserDetails {
     private final User user;
+    public Long getUserId() {
+        return user.getId();
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority(user.getRole().toString()));
@@ -18,6 +21,7 @@ public class JwtUserDetails implements UserDetails {
     public String getPassword() {
         return user.getPassword();
     }
+
     @Override
     public String getUsername() {
         return user.getUsername();

@@ -39,8 +39,6 @@ public class OrderController {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
         order.setUser(updatedOrder.getUser());
-        order.setProduct(updatedOrder.getProduct());
-        order.setQuantity(updatedOrder.getQuantity());
         order.setOrderDate(updatedOrder.getOrderDate());
         return orderRepository.save(order);
     }
