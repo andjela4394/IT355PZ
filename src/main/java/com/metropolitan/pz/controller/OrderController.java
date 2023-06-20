@@ -38,7 +38,7 @@ public class OrderController {
     public Order updateOrder(@PathVariable Long id, @RequestBody Order updatedOrder) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
-        order.setUser(updatedOrder.getUser());
+        order.setUserId(updatedOrder.getUserId());
         order.setOrderDate(updatedOrder.getOrderDate());
         return orderRepository.save(order);
     }
