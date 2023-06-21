@@ -41,5 +41,11 @@ public class OrderServiceImpl implements OrderService {
     public void deleteOrder(Long id) {
         orderRepository.deleteById(id);
     }
+
+    public Long getMaxOrderId() {
+        Order order = orderRepository.findTopByOrderByIdDesc();
+        return order != null ? order.getId() : 0L;
+    }
+
 }
 

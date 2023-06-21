@@ -15,4 +15,6 @@ public interface OrderService {
     public Order updateOrder(Long id, Order updatedOrder);
 
     public void deleteOrder(Long id);
+
+    public Long getMaxOrderId();
 }

@@ -25,5 +25,10 @@ public class Order {
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;
 
+    public Order(Long userId) {
+        this.userId = userId;
+    }
+
+
     // Constructors, getters, and setters
 }

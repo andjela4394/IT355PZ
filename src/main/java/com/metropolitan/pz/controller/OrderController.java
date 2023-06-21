@@ -2,9 +2,13 @@ package com.metropolitan.pz.controller;
 
 import com.metropolitan.pz.entities.Order;
 import com.metropolitan.pz.repository.OrderRepository;
+import com.metropolitan.pz.service.OrderService;
+import com.metropolitan.pz.service.impl.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -12,10 +16,12 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class OrderController {
     private final OrderRepository orderRepository;
+    private final OrderService orderService;
 
     @Autowired
-    public OrderController(OrderRepository orderRepository) {
+    public OrderController(OrderRepository orderRepository, OrderService orderService) {
         this.orderRepository = orderRepository;
+        this.orderService = orderService;
     }
 
     @GetMapping
@@ -31,6 +37,7 @@ public class OrderController {
 
     @PostMapping
     public Order createOrder(@RequestBody Order order) {
+        order.setOrderDate(LocalDateTime.now());
         return orderRepository.save(order);
     }
 
@@ -46,6 +53,12 @@ public class OrderController {
     @DeleteMapping("/{id}")
     public void deleteOrder(@PathVariable Long id) {
         orderRepository.deleteById(id);
+    }
+
+    @GetMapping("/maxOrderId")
+    public ResponseEntity<Long> getMaxOrderId() {
+        Long maxOrderId = orderService.getMaxOrderId();
+        return ResponseEntity.ok(maxOrderId);
     }
 }
 

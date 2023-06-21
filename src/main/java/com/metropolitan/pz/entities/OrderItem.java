@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "orderItem")
+@Table(name = "orderitem")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -23,6 +23,11 @@ public class OrderItem {
 
     @Column(name = "product_id", nullable = false)
     private Long productId;
+
+    public OrderItem(Long orderId, Long productId) {
+        this.orderId = orderId;
+        this.productId = productId;
+    }
 
 
     // Add constructors, getters, and setters

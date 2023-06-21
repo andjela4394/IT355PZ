@@ -44,5 +44,9 @@ public class CartServiceImpl implements CartService {
     public void deleteCartItem(Long cartId) {
         cartRepository.deleteById(cartId);
     }
+
+    public void deleteCartItemByUserId(Long userId) {
+        cartRepository.deleteByUserId(userId);
+    }
 }
 
